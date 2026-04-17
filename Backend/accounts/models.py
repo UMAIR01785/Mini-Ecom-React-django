@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,PermissionsMixin
 from phonenumber_field.modelfields import PhoneNumberField
 from django.conf import settings
@@ -45,6 +46,11 @@ class MyAccountManager(BaseUserManager):
         return self.get(email=email)
 
 class User(AbstractBaseUser,PermissionsMixin):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
     username=models.CharField(unique=True)
     email=models.EmailField(unique=True)
     phone_number=PhoneNumberField()

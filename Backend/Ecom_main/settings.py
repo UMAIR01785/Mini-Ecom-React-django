@@ -43,14 +43,15 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
     'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 AUTH_USER_MODEL='accounts.User'
 
 
 cloudinary.config(
-  cloud_name = "your_cloud_name",
-  api_key = "your_api_key",
-  api_secret = "your_api_secret"
+    cloud_name=config("CLOUDINARY_CLOUD_NAME"),
+    api_key=config("CLOUDINARY_API_KEY"),
+    api_secret=config("CLOUDINARY_API_SECRET"),
 )
 
 MIDDLEWARE = [
@@ -147,4 +148,14 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('Bearer',),
+    'BLACKLIST_AFTER_ROTATION': True,
 }
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = config('Email_port')
+EMAIL_HOST_USER = config("Emial_User")
+EMAIL_HOST_PASSWORD = config("Email_password")
+EMAIL_USE_TLS = config('Email_Tils')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

@@ -7,20 +7,8 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ('email', 'username')
     ordering = ('-date_joined',)
     
-    fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Personal Info', {'fields': ('username', 'first_name', 'last_name', 'phone_number')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_admin', 'is_superuser')}),
-        ('Important Dates', {'fields': ('date_joined', 'updated_at'), 'classes': ('collapse',)}),
-    )
     
     readonly_fields = ('date_joined', 'updated_at')
-    add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'username', 'first_name', 'last_name', 'phone_number', 'password1', 'password2'),
-        }),
-    )
 
 # Register your models here.
 admin.site.register(User, UserAdmin)

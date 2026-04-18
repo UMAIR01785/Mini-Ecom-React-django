@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
+    'Product',
 ]
 AUTH_USER_MODEL='accounts.User'
 

@@ -27,9 +27,9 @@ class ProductSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Product
-        fields = ['id','name','slug','price','description','in_stock','is_active','is_feature','category','primary_image','created_at','updated_at']
+        fields = ['id','name','slug','price','description','stock','is_active','is_feature','category','primary_image','created_at','updated_at']
         
-        read_only_fields = ['slug','in_stock','is_active','created_at','updated_at']
+        read_only_fields = ['slug','is_active','created_at','updated_at']
         
         
     def get_primary_image(self,obj):
@@ -48,7 +48,7 @@ class ProductDetailSerailizer(serializers.ModelSerializer):
             'slug',
             'price',
             'description',
-            'in_stock',
+            'stock',
             'is_active',
             'category',
             'images',

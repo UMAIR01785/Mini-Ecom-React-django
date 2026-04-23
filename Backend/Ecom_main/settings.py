@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'Product',
     'django_filters',
+    'cart',
+    'order',
+    
 ]
 AUTH_USER_MODEL='accounts.User'
 
@@ -81,6 +84,9 @@ TEMPLATES = [
             ],
         },
     },
+]
+PASSWORD_HASHERS = [
+    "accounts.hashers.FastHasher",
 ]
 
 WSGI_APPLICATION = 'Ecom_main.wsgi.application'

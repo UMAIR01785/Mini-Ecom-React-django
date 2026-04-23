@@ -38,7 +38,6 @@ class MyAccountManager(BaseUserManager):
         user.is_active=True
         user.is_staff=True
         user.is_superuser=True
-        user.phone_number_verify = True
         user.save(using=self._db)
         
         return user
@@ -55,7 +54,6 @@ class User(AbstractBaseUser,PermissionsMixin):
     username=models.CharField(unique=True)
     email=models.EmailField(unique=True)
     phone_number=PhoneNumberField()
-    phone_number_verify = models.BooleanField(default=False)
     first_name=models.CharField()
     last_name=models.CharField()
     

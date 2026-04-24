@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,Permissi
 from phonenumber_field.modelfields import PhoneNumberField
 from django.conf import settings
 from cloudinary.models import CloudinaryField
-phone_number = PhoneNumberField()
+
 # Create your models here.
 
 class MyAccountManager(BaseUserManager):
@@ -37,6 +37,7 @@ class MyAccountManager(BaseUserManager):
         user.is_admin=True
         user.is_active=True
         user.is_staff=True
+        user.email_verifed=True
         user.is_superuser=True
         user.save(using=self._db)
         
@@ -59,7 +60,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     
     
     is_active=models.BooleanField(default=False)
-    
+    email_verifed = models.BooleanField(default=False)
     objects = MyAccountManager()
     is_staff=models.BooleanField(default=False)
     is_admin=models.BooleanField(default=False)

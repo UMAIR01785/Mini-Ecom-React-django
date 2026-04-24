@@ -60,6 +60,7 @@ class ActivateLinkView(APIView):
             
         if activate_account.check_token(user,token):
             user.is_active=True
+            user.email_verifed=True
             user.save()
             return Response({
                 "success":True,

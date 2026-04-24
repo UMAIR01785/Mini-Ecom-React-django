@@ -10,7 +10,9 @@ class Cart(models.Model):
     
     
     def __str__(self):
-        return f"{self.user.username}-cart"
+        if self.user:
+            return f"{self.user.username}-cart"
+        return f"{self.session_key}-cart"
     
 
 class CartItem(models.Model):
@@ -23,4 +25,6 @@ class CartItem(models.Model):
     
     
     def __str__(self):
-        return f"{self.product.name}-{self.cart.user.username}"
+        if self.cart.user:
+            return f"{self.product.name}-{self.cart.user.username}"
+        return f"{self.product.name}-guest"

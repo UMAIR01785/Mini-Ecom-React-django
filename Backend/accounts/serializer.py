@@ -23,6 +23,19 @@ class ProfileSerializer(serializers.ModelSerializer):
             return obj.image.url
         return None
     
+    def update(self, instance, validated_data):
+        # Update profile fields
+        for field in ['bio', 'address', 'city', 'state']:
+            if field in validated_data:
+                setattr(instance, field, validated_data[field])
+        
+        # Handle image upload
+        if 'image' in validated_data:
+            instance.image = validated_data['image']
+        
+        instance.save()
+        return instance
+    
     
 class RegisterSerializer(serializers.ModelSerializer):
     

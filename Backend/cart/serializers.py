@@ -27,7 +27,7 @@ class CartitemSerializer(serializers.ModelSerializer):
         ).first()
 
         if primary:
-            return str(primary.image)
+            return primary.image.url
         
         return None
     
@@ -92,10 +92,12 @@ class AddtoCartSerializer(serializers.Serializer):
     
 class UpdateCartItemSerializer(serializers.Serializer):
     quantity = serializers.IntegerField(
-        min_value=1
+        min_value=1,
+        required=False
     )
     action = serializers.ChoiceField(
-        choices=["plus", "minus"]
+        choices=["plus", "minus"],
+        required=False
     )
     
 

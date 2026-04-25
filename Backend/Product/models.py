@@ -40,11 +40,18 @@ class Product(models.Model):
     
     def save(self,*args,**kwargs):
         self.slug = f"{slugify(self.name)}-{uuid.uuid4().hex[:8]}"
+        
+        
+        if self.stock == 0:
+            self.is_active = False
+        else:
+            self.is_active = True
         super().save(*args,**kwargs)
     
     @property
     def in_stock(self):
         return self.stock > 0
+    
     
     
     def __str__(self):

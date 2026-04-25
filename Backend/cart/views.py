@@ -89,7 +89,7 @@ class UpdatedCartView(APIView):
         
         
         if action == "plus":
-            if item.quantity > item.product.quantity:
+            if item.quantity >= item.product.stock:
                 return Response({
                     "success":False,
                     "message":"The stock is low",
@@ -115,7 +115,7 @@ class UpdatedCartView(APIView):
             item.save()
             
         elif quantity is not None:
-            if quantity > item.stock:
+            if quantity > item.product.stock:
                 return Response  ({
                  "success":False,
                     "message":"The stock is low",
@@ -125,6 +125,13 @@ class UpdatedCartView(APIView):
                 
             item.quantity = quantity
             item.save()
+        else:
+            return Response({
+                "success":False,
+                "message":"Invalid update action",
+                "data":None,
+                "error":"Send action (plus/minus) or quantity"
+            },status=status.HTTP_400_BAD_REQUEST)
         
         return Response({
             "success":True,

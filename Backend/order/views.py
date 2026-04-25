@@ -23,7 +23,7 @@ def calculate_cart_total(request):
     for item in items:
         sub_total += item.product.price * item.quantity
     
-    shipped_fee =Decimal("250.00")
+    shipped_fee =Decimal("50.00")
     total = sub_total + shipped_fee
     
     return total , sub_total,shipped_fee,items
@@ -154,17 +154,16 @@ class CheckoutView(APIView):
                     quantity=item.quantity
                 )
 
-
-                item.product.stock -= item.quantity
-                item.product.save()
+                if item.product.stock == 0:
+                    return item.product.delete()
+                elif item.product.stock > 0:
+                    item.product.stock -= item.quantity
+                    item.product.save()
             
-            print(request.session.items())
-            print(request.user.is_authenticated)
-            print(items)
-            print(serializer.errors)
+            
                         
                 
-            items.delete()
+        items.delete()
         
         return Response({
             "success":True,

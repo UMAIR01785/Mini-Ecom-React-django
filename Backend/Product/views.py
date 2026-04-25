@@ -72,3 +72,4 @@ class CategoryProductView(ListAPIView):
             category__slug=slug,
             is_active=True
         )
+        
